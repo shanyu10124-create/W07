@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卍平湖秋月卍 - 決鬥者的聖殿與休憩所</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        milktea: {
+                            50: '#FDFBF7',
+                            100: '#F7F0E6',
+                            200: '#EBDCC8',
+                            300: '#DFC5AA',
+                            400: '#D1AC89',
+                            500: '#B88E65',
+                            600: '#9E7147',
+                            700: '#7E5533',
+                            800: '#5F3F24',
+                            900: '#422A17',
+                        },
+                        darkgold: '#C59B27',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F7F0E6;
+            color: #422A17;
+        }
+
+        /* 經典卡牌旋轉與發光效果 */
+        .card-glow {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(184, 142, 101, 0.2);
+        }
+        
+        .card-glow:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(158, 113, 71, 0.35);
+        }
+
+        .card-flip {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-flip.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* 動態背景脈動 */
+        @keyframes magicGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        .magic-bg {
+            animation: magicGlow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-milktea-300 selection:text-milktea-900">
+
+    <!-- 導覽列 Navigation -->
+    <nav class="sticky top-0 z-50 bg-milktea-100/90 backdrop-blur-md border-b border-milktea-300 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black text-milktea-800 tracking-wider flex items-center gap-2 group">
+                <span class="text-milktea-500 group-hover:rotate-45 transition-transform duration-300">卍</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-milktea-800 via-milktea-600 to-milktea-900">
+                    平湖秋月
+                </span>
+                <span class="text-milktea-500 group-hover:-rotate-45 transition-transform duration-300">卍</span>
+            </a>
+            <div class="hidden md:flex gap-6 font-medium text-milktea-700">
+                <a href="#about" class="hover:text-milktea-900 transition-colors">工作室日常</a>
+                <a href="#services" class="hover:text-milktea-900 transition-colors">決鬥服務</a>
+                <a href="#gacha" class="hover:text-milktea-900 transition-colors">今日命定卡牌</a>
+                <a href="#menu" class="hover:text-milktea-900 transition-colors">補充能量飲</a>
+                <a href="#booking" class="hover:text-milktea-900 transition-colors">約戰／包場</a>
+            </div>
+            <a href="#booking" class="bg-milktea-600 hover:bg-milktea-700 text-white font-bold px-4 py-2 rounded-xl shadow-md transition-all text-sm md:text-base active:scale-95">
+                <i class="fa-solid fa-gamepad mr-1"></i> 預約包廂
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero 區塊 -->
+    <header class="relative overflow-hidden bg-gradient-to-b from-milktea-100 via-milktea-200 to-milktea-100 py-16 md:py-24 border-b border-milktea-300">
+        <!-- 背景幾何與召喚陣裝飾 -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+            <i class="fa-solid fa-circle-nodes text-[30rem] text-milktea-800 magic-bg"></i>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-block bg-milktea-300/60 text-milktea-800 px-4 py-1.5 rounded-full text-sm font-bold mb-4 backdrop-blur-sm border border-milktea-400">
+                ⚡ 歡迎來到決鬥者的終極避風港 ⚡
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black text-milktea-900 mb-6 tracking-tight leading-tight">
+                「抽卡吧！這才是屬於我們的<br><span class="text-milktea-600 underline decoration-milktea-400">漆黑夜會</span>。」
+            </h1>
+            <p class="text-lg md:text-xl text-milktea-800 mb-8 max-w-2xl mx-auto leading-relaxed">
+                嘿，老朋友！又被現實生活的無聊陷阱卡給砸到了嗎？<br>
+                進來坐坐吧，奶茶已泡好，冷氣開最大。不管是來測試新牌組、找對手決鬥，還是單純來聊聊「這張卡為什麼被禁止」，這裡永遠有你的位置。
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#gacha" class="bg-milktea-700 hover:bg-milktea-800 text-white font-bold px-6 py-3 rounded-2xl shadow-lg transition-all flex items-center gap-2 hover:-translate-y-1">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 抽出今日命定卡牌
+                </a>
+                <a href="#menu" class="bg-milktea-50 hover:bg-milktea-200 text-milktea-800 font-bold px-6 py-3 rounded-2xl border border-milktea-400 shadow-sm transition-all">
+                    <i class="fa-solid fa-mug-hot"></i> 看看今日特飲
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 今日命定卡牌互動區塊 -->
+    <section id="gacha" class="py-16 bg-milktea-50">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-extrabold text-milktea-900 mb-2">✦ 每日一抽：命定之卡 ✦</h2>
+            <p class="text-milktea-700 mb-8">「相信卡牌的靈魂，它會指引你今天的運勢！」（點擊卡牌翻開）</p>
+
+            <div class="flex justify-center mb-8">
+                <div id="tarotCard" class="card-flip w-64 h-96 cursor-pointer">
+                    <div class="card-inner relative w-full h-full rounded-2xl shadow-xl transition-transform duration-700">
+                        <!-- 卡背 -->
+                        <div class="card-front absolute inset-0 bg-gradient-to-br from-milktea-700 via-milktea-800 to-milktea-900 text-white rounded-2xl border-4 border-milktea-300 flex flex-col justify-between p-6">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-mono text-milktea-300">卍-DUEL-CARD</span>
+                                <i class="fa-solid fa-crown text-milktea-400"></i>
+                            </div>
+                            <div class="my-auto">
+                                <div class="w-20 h-20 mx-auto rounded-full border-2 border-milktea-400 flex items-center justify-center bg-milktea-800/50 mb-2">
+                                    <i class="fa-solid fa-eye text-3xl text-milktea-300 magic-bg"></i>
+                                </div>
+                                <p class="text-sm text-milktea-200 font-bold">點擊卡牌<br>發動連鎖效果！</p>
+                            </div>
+                            <div class="text-xs text-milktea-400 font-mono">卍平湖秋月卍 謹製</div>
+                        </div>
+                        <!-- 卡面 -->
+                        <div class="card-back absolute inset-0 bg-milktea-100 border-4 border-milktea-500 rounded-2xl p-6 flex flex-col justify-between text-milktea-900 shadow-inner">
+                            <div class="border-b border-milktea-300 pb-2 flex justify-between items-center">
+                                <span id="cardType" class="text-xs font-bold bg-milktea-300 text-milktea-800 px-2 py-0.5 rounded">通常魔法</span>
+                                <span class="font-mono font-bold text-sm" id="cardAtk">ATK / ∞</span>
+                            </div>
+                            <div class="my-auto">
+                                <div id="cardIcon" class="text-5xl my-3 text-milktea-700">
+                                    <i class="fa-solid fa-dragon"></i>
+                                </div>
+                                <h3 id="cardName" class="text-xl font-black text-milktea-900 mb-2">青眼巨龍奶茶</h3>
+                                <p id="cardDesc" class="text-xs text-milktea-700 leading-relaxed bg-milktea-200/50 p-2.5 rounded-lg border border-milktea-300">
+                                    當這張卡被抽取時，今天你的抽卡運氣提升 200%。建議搭配本店特調「漆黑巨龍鮮奶茶」，獲得無視手牌上限的極致滿足！
+                                </p>
+                            </div>
+                            <div class="text-[10px] text-milktea-500 italic">※每日限抽一次，命運由你掌握</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="drawBtn" onclick="drawCard()" class="bg-milktea-600 hover:bg-milktea-700 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all active:scale-95">
+                <i class="fa-solid fa-rotate-right mr-1"></i> 重置並重新抽卡
+            </button>
+        </div>
+    </section>
+
+    <!-- 工作室服務 Services -->
+    <section id="services" class="py-16 max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-extrabold text-milktea-900">✦ 我們的特殊召喚服務 ✦</h2>
+            <p class="text-milktea-700 mt-2">無論你是老練的牌手，還是剛開起門縫的新人，這裡都有為你量身打造的決鬥場地。</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- 服務 1 -->
+            <div class="bg-milktea-100 p-6 rounded-2xl border border-milktea-300 card-glow flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-milktea-300 rounded-xl flex items-center justify-center text-milktea-800 text-2xl font-bold mb-4">
+                        <i class="fa-solid fa-chess-board"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-milktea-900 mb-2">極致決鬥桌體驗</h3>
+                    <p class="text-milktea-700 text-sm leading-relaxed mb-4">
+                        超大尺寸卡墊區域、高級護套不刮牌、專業計分器與硬幣骰子一應俱全！再也不用在狹窄的速食店桌子上委屈你的寶貴卡牌了。
+                    </p>
+                </div>
+                <span class="text-xs font-bold text-milktea-600 bg-milktea-200 px-3 py-1 rounded-full w-fit">場地費 $100 / 暢玩一天</span>
+            </div>
+
+            <!-- 服務 2 -->
+            <div class="bg-milktea-100 p-6 rounded-2xl border border-milktea-300 card-glow flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-milktea-300 rounded-xl flex items-center justify-center text-milktea-800 text-2xl font-bold mb-4">
+                        <i class="fa-solid fa-microscope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-milktea-900 mb-2">牌組健檢與連鎖諮詢</h3>
+                    <p class="text-milktea-700 text-sm leading-relaxed mb-4">
+                        手牌總是卡住？卡組動點不夠？駐店「老牌手店長」提供親切指導，幫你抓出牌組的害群之馬，打造終極卡組連鎖！
+                    </p>
+                </div>
+                <span class="text-xs font-bold text-milktea-600 bg-milktea-200 px-3 py-1 rounded-full w-fit">點一杯飲品免費諮詢</span>
+            </div>
+
+            <!-- 服務 3 -->
+            <div class="bg-milktea-100 p-6 rounded-2xl border border-milktea-300 card-glow flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-milktea-300 rounded-xl flex items-center justify-center text-milktea-800 text-2xl font-bold mb-4">
+                        <i class="fa-solid fa-users-rays"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-milktea-900 mb-2">黑魔導密會／包場賽事</h3>
+                    <p class="text-milktea-700 text-sm leading-relaxed mb-4">
+                        想跟朋友舉辦戰隊交流賽或小型公會賽？我們提供包場優惠與投影設備，讓你體驗宛如「決鬥都市」般的戰鬥氛圍！
+                    </p>
+                </div>
+                <span class="text-xs font-bold text-milktea-600 bg-milktea-200 px-3 py-1 rounded-full w-fit">團體預約另有折扣</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 補充能量特飲 Menu -->
+    <section id="menu" class="py-16 bg-milktea-200/60 border-y border-milktea-300">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-milktea-900">✦ 漆黑的補充能量飲 ✦</h2>
+                <p class="text-milktea-700 mt-2">決鬥是很耗腦力的！來一杯工作室特調，讓你 LP 瞬間補滿！</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 飲料 1 -->
+                <div class="bg-milktea-50 p-4 rounded-xl border border-milktea-300 flex items-center gap-4">
+                    <div class="w-16 h-16 bg-milktea-300 rounded-lg flex items-center justify-center text-3xl text-milktea-800 flex-shrink-0">
+                        <i class="fa-solid fa-whiskey-glass"></i>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-bold text-milktea-900 text-lg">卍 漆黑翼神龍奶茶 卍</h4>
+                            <span class="text-milktea-800 font-extrabold">$70</span>
+                        </div>
+                        <p class="text-xs text-milktea-700">重焙鐵觀音 + 濃郁鮮奶 + 漆黑黑糖珍珠。喝下後攻守數值獲得全方位提升！</p>
+                    </div>
+                </div>
+
+                <!-- 飲料 2 -->
+                <div class="bg-milktea-50 p-4 rounded-xl border border-milktea-300 flex items-center gap-4">
+                    <div class="w-16 h-16 bg-milktea-300 rounded-lg flex items-center justify-center text-3xl text-milktea-800 flex-shrink-0">
+                        <i class="fa-solid fa-mug-saucer"></i>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-bold text-milktea-900 text-lg">歐貝利斯克巨神燕麥奶</h4>
+                            <span class="text-milktea-800 font-extrabold">$80</span>
+                        </div>
+                        <p class="text-xs text-milktea-700">濃厚燕麥搭配雙倍濃縮咖啡，宛如粉碎神拳般的震撼衝擊，熬夜砌牌救星。</p>
+                    </div>
+                </div>
+
+                <!-- 飲料 3 -->
+                <div class="bg-milktea-50 p-4 rounded-xl border border-milktea-300 flex items-center gap-4">
+                    <div class="w-16 h-16 bg-milktea-300 rounded-lg flex items-center justify-center text-3xl text-milktea-800 flex-shrink-0">
+                        <i class="fa-solid fa-glass-water"></i>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-bold text-milktea-900 text-lg">死者蘇生金萱烏龍</h4>
+                            <span class="text-milktea-800 font-extrabold">$55</span>
+                        </div>
+                        <p class="text-xs text-milktea-700">高山金萱冷泡茶，口感甘醇順口。當你連輸三把心灰意冷時，這杯能讓你重獲新生！</p>
+                    </div>
+                </div>
+
+                <!-- 飲料 4 -->
+                <div class="bg-milktea-50 p-4 rounded-xl border border-milktea-300 flex items-center gap-4">
+                    <div class="w-16 h-16 bg-milktea-300 rounded-lg flex items-center justify-center text-3xl text-milktea-800 flex-shrink-0">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-bold text-milktea-900 text-lg">壺中欲望特調水果茶</h4>
+                            <span class="text-milktea-800 font-extrabold">$65</span>
+                        </div>
+                        <p class="text-xs text-milktea-700">滿滿新鮮水果與微氣泡感，發動效果：讓你在店裡多抽兩張牌（需看運氣）。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 約戰與預約區塊 Booking -->
+    <section id="booking" class="py-16 max-w-4xl mx-auto px-4">
+        <div class="bg-milktea-100 p-8 rounded-3xl border-2 border-milktea-300 shadow-xl">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-extrabold text-milktea-900">✦ 預約你的決鬥席位 ✦</h2>
+                <p class="text-milktea-700 text-sm mt-2">填寫召喚陣契約，我們會盡快為你保留最舒適的桌位！</p>
+            </div>
+
+            <form id="bookingForm" onsubmit="handleBooking(event)" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-milktea-800 mb-1">決鬥者稱號 / 姓名</label>
+                        <input type="text" required placeholder="例如：武藤遊戲、漆黑之翼..." class="w-full bg-milktea-50 border border-milktea-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-milktea-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-milktea-800 mb-1">聯絡魔導電訊 (電話/LINE)</label>
+                        <input type="text" required placeholder="09xx-xxx-xxx 或 LINE ID" class="w-full bg-milktea-50 border border-milktea-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-milktea-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-milktea-800 mb-1">降臨日期</label>
+                        <input type="date" required class="w-full bg-milktea-50 border border-milktea-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-milktea-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-milktea-800 mb-1">參戰人數</label>
+                        <select class="w-full bg-milktea-50 border border-milktea-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-milktea-500">
+                            <option>1 人（來尋找命定對手）</option>
+                            <option>2 人（1v1 宿命決鬥）</option>
+                            <option>3-4 人（雙打 / 小小歡樂桌）</option>
+                            <option>5 人以上（包桌 / 戰隊大亂鬥）</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-milktea-800 mb-1">主要使用的牌組或特殊需求</label>
+                    <textarea rows="3" placeholder="例如：我玩閃刀姬，希望對手不要開手坑..." class="w-full bg-milktea-50 border border-milktea-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-milktea-500"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-milktea-700 hover:bg-milktea-800 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all text-base active:scale-98">
+                    <i class="fa-solid fa-paper-plane mr-1"></i> 發送召喚契約！
+                </button>
+            </form>
+
+            <div id="bookingMsg" class="hidden mt-4 p-4 bg-milktea-300/50 text-milktea-900 rounded-xl text-center font-bold text-sm">
+                🎉 召喚契約已順利送出！我們會在第一時間聯絡你，請隨時準備好你的牌組！
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 Footer -->
+    <footer class="bg-milktea-900 text-milktea-200 py-10 border-t-4 border-milktea-500">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-4">
+            <div class="text-2xl font-black text-milktea-300 tracking-widest">
+                卍平湖秋月卍
+            </div>
+            <p class="text-xs text-milktea-400 max-w-md mx-auto">
+                這裡是屬於所有對卡牌充滿熱情之人的安息角與決鬥場。<br>
+                隨時歡迎來喝奶茶、切磋牌藝、交流牌組！
+            </p>
+            <div class="flex justify-center gap-6 text-xl text-milktea-400">
+                <a href="#" class="hover:text-milktea-200 transition-colors"><i class="fa-brands fa-discord"></i></a>
+                <a href="#" class="hover:text-milktea-200 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-milktea-200 transition-colors"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+            <div class="pt-6 border-t border-milktea-800 text-xs text-milktea-400 flex flex-col sm:flex-row justify-between items-center gap-2">
+                <span>© 2026 卍平湖秋月卍 工作室 All Rights Reserved.</span>
+                <!-- 要求加上製作人訊息 -->
+                <span class="font-bold text-milktea-300 bg-milktea-800 px-3 py-1 rounded-full border border-milktea-700">
+                    製作：JCY
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 命定卡牌資料庫
+        const cards = [
+            {
+                name: "青眼巨龍奶茶",
+                type: "速攻魔法",
+                atk: "ATK / 3000",
+                icon: "fa-dragon",
+                desc: "當這張卡被抽取時，今天你的抽卡運氣提升 200%。建議搭配本店特調「漆黑巨龍鮮奶茶」，獲得無視手牌上限的極致滿足！"
+            },
+            {
+                name: "漆黑之翼神龍",
+                type: "神幻獸族",
+                atk: "ATK / ???",
+                icon: "fa-crow",
+                desc: "獻祭掉今天所有的煩惱與壓力，特殊召喚極致放鬆狀態！此卡在場上時，對手發動的「加班」與「考試」無效並破壞。"
+            },
+            {
+                name: "灰流麗之微笑",
+                type: "手坑反擊",
+                atk: "ATK / 0",
+                icon: "fa-ghost",
+                desc: "無效對手今天一切的不順心！當生活想要對你檢索負面情緒時，丟棄這張卡，讓今天只留下好心情。"
+            },
+            {
+                name: "壺中欲望特調",
+                type: "通常魔法",
+                atk: "ATK / +2",
+                icon: "fa-whiskey-glass",
+                desc: "發動後可以從店長的藏牌庫中獲取 2 個極佳的牌組組建建議！補充水分的同時補充戰術思維。"
+            },
+            {
+                name: "神聖防護罩-反射鏡力-",
+                type: "陷阱卡",
+                atk: "DEF / ∞",
+                icon: "fa-shield-halved",
+                desc: "當對手對你發動攻擊時，將所有負面能量全數反射回去！今天你是絕對安全的，安心在這裡玩牌吧。"
+            }
+        ];
+
+        let isFlipped = false;
+
+        // 翻卡與抽卡邏輯
+        const tarotCard = document.getElementById('tarotCard');
+        
+        tarotCard.addEventListener('click', () => {
+            tarotCard.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        });
+
+        function drawCard() {
+            if (isFlipped) {
+                tarotCard.classList.remove('flipped');
+                isFlipped = false;
+                setTimeout(updateCardData, 400);
+            } else {
+                updateCardData();
+                tarotCard.classList.add('flipped');
+                isFlipped = true;
+            }
+        }
+
+        function updateCardData() {
+            const randomCard = cards[Math.floor(Math.random() * cards.length)];
+            document.getElementById('cardName').innerText = randomCard.name;
+            document.getElementById('cardType').innerText = randomCard.type;
+            document.getElementById('cardAtk').innerText = randomCard.atk;
+            document.getElementById('cardDesc').innerText = randomCard.desc;
+            document.getElementById('cardIcon').innerHTML = `<i class="fa-solid ${randomCard.icon}"></i>`;
+        }
+
+        // 預約表單提交
+        function handleBooking(e) {
+            e.preventDefault();
+            const msg = document.getElementById('bookingMsg');
+            msg.classList.remove('hidden');
+            document.getElementById('bookingForm').reset();
+            setTimeout(() => {
+                msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
